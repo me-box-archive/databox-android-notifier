@@ -1,5 +1,6 @@
 package uk.me.robspencer.databoxnotify;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -14,6 +15,9 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("notifier", "Refreshed token: " + refreshedToken);
+        Intent i = new Intent("FCM_TOKEN_CHANGED");
+        i.putExtra("fcmID", refreshedToken);
+        sendBroadcast(i);
 
         // TODO: Implement this method to send any registration to your app's servers.
         //sendRegistrationToServer(refreshedToken);
